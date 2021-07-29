@@ -1,29 +1,26 @@
-#include<iostream>
-#include<opencv/cv.h>
-#include<opencv2/opencv.hpp>
-#include<opencv2/core/core.hpp>
-#include<opencv2/imgcodecs/imgcodecs.hpp>
-
-using namespace std;
-using namespace cv;
-
-int face_img(char* src, char *Cas);
-int face_video(char* src, char* Cas);
-void Rect_Tag_FaceAndEyes(Mat img, Mat imgGray);
+#include "main.h"
+#include "material.h"
 
 CascadeClassifier face_Cascade;
 CascadeClassifier eyes_Cascade;
+
+int face_img(char* src, char* Cas);
+int face_video(char* src, char* Cas);
+void Rect_Tag_FaceAndEyes(Mat img, Mat imgGray);
+
+
 int main()
 {
-	char src[200] = {};
-	char CasSrc[200] = "G:/opencv3.4/opencv/sources/data/haarcascades/haarcascade_frontalface_alt2.xml";
-	char CasSrc_eyes[200] = "G:/opencv3.4/opencv/sources/data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";//眼睛的分类器数据
-	/*
+
+	
 	//以下代码是图片识别的测试
+	string src;
 	printf("请输入照片路径:");
 	cin >> src;
-	face_img(src, CasSrc);*/
-	face_video(CasSrc, CasSrc_eyes);
+	GetMat((char *)src.c_str());
+	//face_img(src, CasSrc);
+
+	//face_video(CasSrc, CasSrc_eyes);
 	
 	return 0;
 }
@@ -68,9 +65,9 @@ int face_video(char* src, char* Cas) {
 
 	Mat img, imgGray,smallImg;
 	double t;
-	cap.set(CAP_PROP_FPS, 60);
-	cap.set(CAP_PROP_FRAME_WIDTH, 640);
-	cap.set(CAP_PROP_FRAME_HEIGHT, 480);
+	cap.set(CAP_PROP_FPS, 30);
+	cap.set(CAP_PROP_FRAME_WIDTH, 300);
+	cap.set(CAP_PROP_FRAME_HEIGHT, 300);
 	while (true) {
 
 		if (!cap.read(img)) {
@@ -80,12 +77,8 @@ int face_video(char* src, char* Cas) {
 		cvtColor(img, imgGray, CV_BGR2GRAY);//转灰度
 		
 		t = (double)getTickCount();
-		//缩放图片 提高效率
-		#ifdef VERSION_2_4	
-				resize(imgGray, smallImg, Size(), 4, 4, INTER_LINEAR);
-		#else
-				resize(imgGray, smallImg, Size(),1,1, INTER_LINEAR_EXACT);
-		#endif
+
+		resize(imgGray, smallImg, Size(30,30),0,0, INTER_LINEAR_EXACT);
 		
 		equalizeHist(imgGray, smallImg);//均值化
 		Rect_Tag_FaceAndEyes(img, smallImg);
@@ -106,9 +99,7 @@ void Rect_Tag_FaceAndEyes(Mat img,Mat imgGray) {
 
 	face_Cascade.detectMultiScale(imgGray, faces, 1.1, 5, 0, Size(30, 30));
 
-	//for (auto b : faces) {//遍历
-	//	cout << "位置(x,y)"<<b.x<<","<<b.y<<"\n Data(w,h)"<< b.width<<","<<b.height <<"\n=============="<< endl;
-	//}
+
 	if (faces.size()) {//如果有数据
 		for (size_t i = 0; i < faces.size(); i++)
 		{
@@ -123,7 +114,7 @@ void Rect_Tag_FaceAndEyes(Mat img,Mat imgGray) {
 			{
 				Point eys_center(faces[i].x+eyes[j].x+eyes[j].width/2, faces[i].y + eyes[j].y+eyes[j].height / 2);//圆心x,y
 
-				circle(img, eys_center, (float)(eyes[j].width + eyes[j].height) * 0.25,Scalar(0,0,255),4,8,0);
+				circle(img, eys_center, (double)(eyes[j].width + eyes[j].height) * 0.25,Scalar(0,0,255),4,8,0);
 
 			}
 		}
