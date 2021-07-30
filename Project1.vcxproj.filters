@@ -30,12 +30,18 @@
     <ClCompile Include="material.cpp">
       <Filter>资源文件\源文件\GetMaterial</Filter>
     </ClCompile>
+    <ClCompile Include="Train.cpp">
+      <Filter>资源文件\源文件\TrainMesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>资源文件\头文件</Filter>
     </ClInclude>
     <ClInclude Include="material.h">
+      <Filter>资源文件\头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Train.h">
       <Filter>资源文件\头文件</Filter>
     </ClInclude>
   </ItemGroup>

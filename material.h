@@ -1,2 +1,3 @@
 #pragma once
-int GetMat(char *src);
+#include "main.h"
+int GetMat(char *src);//·ÖÎöËØ²Äº¯Êı

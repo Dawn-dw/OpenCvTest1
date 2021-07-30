@@ -1,6 +1,6 @@
 #include "main.h"
 #include "material.h"
-
+#include "Train.h"
 CascadeClassifier face_Cascade;
 CascadeClassifier eyes_Cascade;
 
@@ -11,16 +11,50 @@ void Rect_Tag_FaceAndEyes(Mat img, Mat imgGray);
 
 int main()
 {
+	string src,configFile;
+	char c = 0;
+	do
+	{
+		cout << "===========菜 单 选 择===========" << endl;
+		cout << "1.\t图 片 人 脸 检 测" << endl;
+		cout << "2.\t模 型 素 材 获 取" << endl;
+		cout << "3.\t摄 像 头 人 脸 检 测" << endl;
+		cout << "4.\t视 频 流 模 型 训 练" << endl;
+		cout << "=================================" << endl;
+		cout << "\t按Q退出,请输入数字选择功能:" ;
+		c = getchar();
 
+	#if c=='q'
+
+		cout << "\t请输入素材地址(视频可以选择local or web,):";
+		cin >> src;
+		switch (c)
+		{
+		case '1':
+			//以下代码是图片识别的测试
+			face_img((char*)src.c_str(), CasSrc);
+			break;
+		case '2':
+			//分析素材函数
+			GetMat((char *)src.c_str());
+			break;
+		case '3':
+			//以下是摄像头获取流进行人脸识别的测试
+			face_video(CasSrc, CasSrc_eyes);
+			break;
+		case '4':
+			printf("请输入配置源:");
+			cin >> configFile;
+			StartAnalysis(configFile, src);
+			break;
+		default:
+			break;
+		}
+
+	#endif	
+	} while (c!='q');
 	
-	//以下代码是图片识别的测试
-	string src;
-	printf("请输入照片路径:");
-	cin >> src;
-	GetMat((char *)src.c_str());
-	//face_img(src, CasSrc);
-
-	//face_video(CasSrc, CasSrc_eyes);
+	
 	
 	return 0;
 }
@@ -124,6 +158,7 @@ void Rect_Tag_FaceAndEyes(Mat img,Mat imgGray) {
 
 
 void BackUp() {
+	//上课笔记
 	//Mat src = imread("C:/Users/Administrator/Desktop/haianxian.png",IMREAD_COLOR);
 	//putText(src,"Hello,World",Point(200,200),FONT_HERSHEY_COMPLEX,5.0,Scalar(0,0,0),10);
 

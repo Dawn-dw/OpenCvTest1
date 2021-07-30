@@ -80,8 +80,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>G:\opencv3.4\opencv\build\include;$(IncludePath)</IncludePath>
-    <LibraryPath>G:\opencv3.4\opencv\build\x64\vc15\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>G:\opencv3.4\opencv\build\install\include;G:\opencv3.4\opencv\build\include;$(IncludePath)</IncludePath>
+    <LibraryPath>G:\opencv3.4\opencv\build\x64\vc15\lib;G:\opencv3.4\opencv\build\install\x64\vc16\bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -125,7 +125,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>G:\opencv3.4\opencv\build\x64\vc15\lib\opencv_world3415d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>G:\opencv3.4\opencv\build\x64\vc15\lib\opencv_world3415d.lib;G:\opencv3.4\opencv\build\install\x64\vc16\lib\opencv_face3415d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -147,10 +147,12 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="material.cpp" />
+    <ClCompile Include="Train.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
     <ClInclude Include="material.h" />
+    <ClInclude Include="Train.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

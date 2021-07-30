@@ -1,5 +1,9 @@
-#include "main.h"
-
+#include "material.h"
+/*
+* 这个是获取视频（暂定目标源为抖音web视频源）人脸素材的解析函数
+* 获取后按空格进行人脸识别的筛选，按N到下一帧 按ESC退出
+* 
+*/
 int GetMat(char * src) {
 	
 	int count = 0;
@@ -12,12 +16,12 @@ int GetMat(char * src) {
 	//人脸检测级联分类器
 	CascadeClassifier faceDetector;
 	//初始化，导入全局变量人脸级联数据路径
-	faceDetector.load(CasSrc);
+	faceDetector.load(FaceCasSrc);
 	Mat frame, img,dst;
 	vector<Rect> faces;
 	//为了适配抖音短视频的分辨率
-	cap.set(CAP_PROP_FRAME_WIDTH, 1080);
-	cap.set(CAP_PROP_FRAME_HEIGHT, 1920);
+	cap.set(CAP_PROP_FRAME_WIDTH, 1920);
+	cap.set(CAP_PROP_FRAME_HEIGHT, 1080);
 	//读取数据
 	while (cap.read(frame))
 	{
@@ -44,7 +48,7 @@ int GetMat(char * src) {
 				cap.release();
 				return 0;
 			}
-			else if (c == 'n') {
+			else if (c == 'n') {//下一个
 				break;
 			
 			}
